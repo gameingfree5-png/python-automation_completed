@@ -1,17 +1,29 @@
 {
   "home": {
     "enabled": true,
-    "pages": 2
+    "pages": 5
   },
   "model_path_template": "/models/{model}/",
   "models": {
     "violet-myers": {
       "enabled": true,
-      "pages": 2
+      "pages": 5
     },
     "candy-love": {
       "enabled": true,
-      "pages": 2
+      "pages": 5
+    },
+    "sweetie-fox": {
+      "enabled": true,
+      "pages": 5
+    },
+    "belovefree": {
+      "enabled": true,
+      "pages": 5
+    },
+    "reislin": {
+      "enabled": true,
+      "pages": 5
     }
   }
 }
