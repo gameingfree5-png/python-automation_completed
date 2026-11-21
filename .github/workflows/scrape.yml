@@ -1,0 +1,85 @@
+name: Scrape and Save Playlists
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */2 * * *'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: playlist-scraper
+  cancel-in-progress: false
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 selenium
+
+      - name: Check Python and config
+        run: |
+          python3 -m py_compile demo.py
+          python3 -m json.tool scrape_config.json > /dev/null
+          git rev-parse --short HEAD
+
+      - name: Run homepage then models
+        env:
+          BASE_URL: ${{ vars.BASE_URL || 'https://pornhao.com' }}
+        run: |
+          python3 demo.py --headless \
+            --config scrape_config.json \
+            --output-json playlist.json \
+            --output-m3u playlist.m3u
+
+      - name: Verify playlist data
+        run: |
+          python3 - <<'PYCODE'
+          import json
+          from pathlib import Path
+
+          p = Path('playlist.json')
+          m = Path('playlist.m3u')
+          if not p.exists() or not m.exists():
+              raise SystemExit('ERROR: missing playlist files')
+          entries = json.loads(p.read_text(encoding='utf-8'))
+          if not isinstance(entries, list) or not entries:
+              raise SystemExit('ERROR: no videos scraped')
+          fields = {'model', 'title', 'page_url', 'stream_url', 'thumbnail', 'qualities'}
+          for i, entry in enumerate(entries, 1):
+              if not isinstance(entry, dict) or not fields.issubset(entry):
+                  raise SystemExit(f'ERROR: missing fields in item {i}')
+              if not entry['stream_url'] or ',[' in entry['stream_url']:
+                  raise SystemExit(f'ERROR: invalid Auto stream in item {i}')
+              if not isinstance(entry['qualities'], dict):
+                  raise SystemExit(f'ERROR: invalid qualities in item {i}')
+          print(f'SUCCESS: {len(entries)} videos')
+          for source in dict.fromkeys(e['model'] for e in entries):
+              print(f'  {source}: {sum(e["model"] == source for e in entries)}')
+          PYCODE
+
+      - name: Commit playlists to GitHub
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add playlist.json playlist.m3u
+          if git diff --cached --quiet; then
+            echo 'No playlist changes'
+          else
+            git commit -m 'Auto update home and model playlists'
+            git push
+          fi
