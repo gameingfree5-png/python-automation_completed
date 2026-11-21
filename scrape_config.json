@@ -1,0 +1,17 @@
+{
+  "home": {
+    "enabled": true,
+    "pages": 10
+  },
+  "model_path_template": "/models/{model}/",
+  "models": {
+    "violet-myers": {
+      "enabled": true,
+      "pages": 3
+    },
+    "candy-love": {
+      "enabled": true,
+      "pages": 5
+    }
+  }
+}
