@@ -20,7 +20,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.ui import WebDriverWait
 
-SCRIPT_VERSION = "home-models-config-v1"
+SCRIPT_VERSION = "home-models-category-v2"
 BASE_URL = os.environ.get("BASE_URL", "https://pornhao.com").rstrip("/")
 SCROLL_PAUSE = 2
 REQUEST_DELAY = 1
@@ -323,7 +323,7 @@ def scrape_all(config, headless=False):
                         auto_url = qualities.get("Auto", "").strip()
                         if auto_url:
                             results.append({
-                                "model": source_name,
+                                "category": source_name,
                                 "title": info["title"],
                                 "page_url": url,
                                 "stream_url": auto_url,
@@ -351,13 +351,13 @@ def clean_attribute(value):
 def save_playlist(entries, json_file="playlist.json", m3u_file="playlist.m3u", display_prefix="⭐ "):
     lines = ["#EXTM3U", ""]
     for item in entries:
-        model = item["model"]
-        title = clean_attribute(display_prefix + item.get("title", model))
+        category = item["category"]
+        title = clean_attribute(display_prefix + item.get("title", category))
         lines.append(
-            f'#EXTINF:-1 tvg-id="{clean_attribute(model.lower())}" '
-            f'tvg-name="{clean_attribute(model.replace("-", " ").title())}" '
+            f'#EXTINF:-1 tvg-id="{clean_attribute(category.lower())}" '
+            f'tvg-name="{clean_attribute(category.replace("-", " ").title())}" '
             f'tvg-logo="{clean_attribute(item.get("thumbnail", ""))}" '
-            f'group-title="{clean_attribute(model)}",{title}'
+            f'group-title="{clean_attribute(category)}",{title}'
         )
         lines.extend([item["stream_url"], ""])
     outputs = [
