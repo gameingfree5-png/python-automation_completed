@@ -5,6 +5,22 @@
   },
   "model_path_template": "/models/{model}/",
   "models": {
+    "alison-tyler": {
+      "enabled": true,
+      "pages": 2
+    },
+    "carlacute": {
+      "enabled": true,
+      "pages": 5
+    },
+    "kali-roses": {
+      "enabled": true,
+      "pages": 5
+    },
+    "reislin": {
+      "enabled": true,
+      "pages": 5
+    },
     "violet-myers": {
       "enabled": true,
       "pages": 5
@@ -21,7 +37,11 @@
       "enabled": true,
       "pages": 5
     },
-    "reislin": {
+    "barbie": {
+      "enabled": true,
+      "pages": 5
+    },
+    "august-ames": {
       "enabled": true,
       "pages": 5
     }
