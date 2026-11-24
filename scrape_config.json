@@ -5,9 +5,65 @@
   },
   "model_path_template": "/models/{model}/",
   "models": {
+    "kylie-rocket": {
+      "enabled": true,
+      "pages": 5
+    },
+    "princess-alice": {
+      "enabled": true,
+      "pages": 5
+    },
+    "scarlett-jones": {
+      "enabled": true,
+      "pages": 5
+    },
+    "cutie-kim": {
+      "enabled": true,
+      "pages": 5
+    },
+    "whitney-wright": {
+      "enabled": true,
+      "pages": 5
+    },
+    "molly-jane": {
+      "enabled": true,
+      "pages": 5
+    },
+    "princess-alice": {
+      "enabled": true,
+      "pages": 5
+    },
+    "miss-ellie-moore": {
+      "enabled": true,
+      "pages": 5
+    },
+    "arya-fae": {
+      "enabled": true,
+      "pages": 5
+    },
+    "jaz": {
+      "enabled": true,
+      "pages": 5
+    },
+    "leksa-biffer": {
+      "enabled": true,
+      "pages": 5
+    },
+    "angie-faith": {
+      "enabled": true,
+      "pages": 5
+    },
+    "sweetie-fox": {
+      "enabled": true,
+      "pages": 5
+    },
     "alison-tyler": {
       "enabled": true,
       "pages": 2
+    },
+    "barbie": {
+      "enabled": true,
+      "pages": 5
     },
     "carlacute": {
       "enabled": true,
@@ -29,15 +85,7 @@
       "enabled": true,
       "pages": 5
     },
-    "sweetie-fox": {
-      "enabled": true,
-      "pages": 5
-    },
     "belovefree": {
-      "enabled": true,
-      "pages": 5
-    },
-    "barbie": {
       "enabled": true,
       "pages": 5
     },
