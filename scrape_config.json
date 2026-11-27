@@ -5,7 +5,23 @@
   },
   "model_path_template": "/models/{model}/",
   "models": {
-    "kylie-rocket": {
+    "lexi-luna": {
+      "enabled": true,
+      "pages": 5
+    },
+    "lindsay-lee": {
+      "enabled": true,
+      "pages": 5
+    },
+    "hello-siri-aka-merida-sat": {
+      "enabled": true,
+      "pages": 5
+    },
+    "shinaryen": {
+      "enabled": true,
+      "pages": 5
+    },
+    "diana-rider": {
       "enabled": true,
       "pages": 5
     },
